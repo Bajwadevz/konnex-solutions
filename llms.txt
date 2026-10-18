@@ -1,17 +1,26 @@
 # Konnex Solutions
 
-> Recruitment, contract staffing and executive search for US state, local and education (SLED) employers. Every professional placed with a public agency is US-based and work-authorized. A separate line builds offshore teams for private companies.
+> Konnex Solutions is an offshore talent firm, founded in 2024 by Shahzaib Ahmad Bajwa. It finds, hires and manages offshore talent, mostly in Pakistan, for companies in the US, UK and worldwide: offshore teams, virtual assistants, recruitment, BPO and sales development. Its largest single line is SLED IT projects: software, web, accessibility, data, QA and IT staff augmentation for US state, local and education agencies, with agency data kept in US-hosted environments and offshore engineers limited to code and synthetic test data.
 
-- [SLED staffing services](https://www.konnexsolutions.com/sled)
-- [State and local government staffing](https://www.konnexsolutions.com/state-local-government-staffing)
-- [K-12 staffing](https://www.konnexsolutions.com/k12-staffing)
-- [Higher education staffing](https://www.konnexsolutions.com/higher-education-staffing)
-- [Government IT staffing](https://www.konnexsolutions.com/government-it-staffing)
-- [Executive search](https://www.konnexsolutions.com/executive-search)
-- [How to buy](https://www.konnexsolutions.com/how-to-buy)
-- [Delivery and compliance](https://www.konnexsolutions.com/delivery-and-compliance)
-- [Capability statement](https://www.konnexsolutions.com/capability-statement)
+## Offshore talent
+- [Offshore teams](https://www.konnexsolutions.com/offshore-teams): dedicated offshore staff for any function, employed and managed by Konnex
+- [Virtual assistants](https://www.konnexsolutions.com/virtual-assistants): executive, admin, Amazon and sales support VAs
+- [Recruitment](https://www.konnexsolutions.com/recruitment): permanent, contract-to-hire and executive search
+- [BPO and back office](https://www.konnexsolutions.com/bpo-services): customer support, data entry and admin for SMBs
+- [Sales development](https://www.konnexsolutions.com/sales-development): outsourced SDRs, appointment setters and lead researchers
+
+## SLED IT projects
+- [SLED IT overview](https://www.konnexsolutions.com/sled): IT delivery for state, local and education agencies
+- [Software development](https://www.konnexsolutions.com/sled/software-development): apps, portals, websites and accessibility remediation
+- [IT services and infrastructure](https://www.konnexsolutions.com/sled/it-services): cloud in US regions, data, documentation and support
+- [IT staff augmentation](https://www.konnexsolutions.com/sled/it-staff-augmentation): developers, QA, data and cloud engineers
+- [How to buy](https://www.konnexsolutions.com/sled/how-to-buy): quotes, RFPs and subcontracting under primes
+- [Delivery and compliance](https://www.konnexsolutions.com/sled/delivery-and-compliance): what runs offshore and what never does
+- [Capability statement](https://www.konnexsolutions.com/capability-statement): services, NAICS codes and contacts
+
+## Guides
 - [What is SLED?](https://www.konnexsolutions.com/insights/what-is-sled)
-- [Offshore teams for private companies](https://www.konnexsolutions.com/offshore-teams)
+- [Can government agencies use offshore developers?](https://www.konnexsolutions.com/insights/can-government-agencies-use-offshore-developers)
+- [Pakistan vs Philippines for offshore staffing](https://www.konnexsolutions.com/insights/offshore-staffing-pakistan-vs-philippines)
 
-Contact: info@konnexsolutions.com, +1 (302) 587-7671. NAICS: 561311, 561312, 561320, 541612, 541611.
+Contact: info@konnexsolutions.com, +1 (302) 587-7671. NAICS: 541511 (primary), 541512, 541519, 518210, 541611, 561311, 561320.

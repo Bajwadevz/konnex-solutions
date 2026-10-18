@@ -19,17 +19,17 @@
     },
     {
       "source": "/services",
-      "destination": "/sled",
+      "destination": "/offshore-teams",
       "permanent": true
     },
     {
       "source": "/services/:path*",
-      "destination": "/sled",
+      "destination": "/offshore-teams",
       "permanent": true
     },
     {
       "source": "/our-services",
-      "destination": "/sled",
+      "destination": "/offshore-teams",
       "permanent": true
     },
     {
@@ -50,6 +50,46 @@
     {
       "source": "/index",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/state-local-government-staffing",
+      "destination": "/sled",
+      "permanent": true
+    },
+    {
+      "source": "/k12-staffing",
+      "destination": "/sled/it-services",
+      "permanent": true
+    },
+    {
+      "source": "/higher-education-staffing",
+      "destination": "/sled/it-services",
+      "permanent": true
+    },
+    {
+      "source": "/government-it-staffing",
+      "destination": "/sled/it-staff-augmentation",
+      "permanent": true
+    },
+    {
+      "source": "/executive-search",
+      "destination": "/recruitment",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-buy",
+      "destination": "/sled/how-to-buy",
+      "permanent": true
+    },
+    {
+      "source": "/delivery-and-compliance",
+      "destination": "/sled/delivery-and-compliance",
+      "permanent": true
+    },
+    {
+      "source": "/sled-it-services",
+      "destination": "/sled",
       "permanent": true
     }
   ],
@@ -84,7 +124,16 @@
       ]
     },
     {
-      "source": "/(styles.css|site.js|favicon.svg|og.png|logo.png)",
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(favicon.svg|og.png|icon-512.png|apple-touch-icon.png)",
       "headers": [
         {
           "key": "Cache-Control",
