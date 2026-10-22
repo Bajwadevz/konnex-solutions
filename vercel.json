@@ -91,6 +91,11 @@
       "source": "/sled-it-services",
       "destination": "/sled",
       "permanent": true
+    },
+    {
+      "source": "/top-use-cases-of-staffing-and-bpo-services-that-drive-business-success",
+      "destination": "/bpo-services",
+      "permanent": true
     }
   ],
   "headers": [
