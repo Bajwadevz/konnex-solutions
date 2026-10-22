@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Series {
+  id                String          @id @default(cuid())
+  name              String
+  nicheKey          String
+  customNichePrompt String?
+  language          String          @default("en")
+  voiceId           String
+  musicTrackIds     String          @default("[]")
+  artStyleKey       String
+  captionStyle      String          @default("{}")
+  effects           String          @default("[]")
+  durationMinSec    Int             @default(30)
+  durationMaxSec    Int             @default(40)
+  timezone          String          @default("UTC")
+  publishTimes      String          @default("[]")
+  publishDays       String          @default("[0,1,2,3,4,5,6]")
+  leadHours         Int             @default(6)
+  autoApprove       Boolean         @default(false)
+  autoPublish       Boolean         @default(true)
+  status            String          @default("ACTIVE")
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  videos            Video[]
+  accounts          SeriesAccount[]
+}
+
+model Video {
+  id           String        @id @default(cuid())
+  seriesId     String
+  series       Series        @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  status       String        @default("PENDING")
+  progress     Int           @default(0)
+  topic        String?
+  title        String?
+  description  String?
+  hashtags     String        @default("[]")
+  scriptJson   String?
+  scheduledFor DateTime?
+  filePath     String?
+  thumbPath    String?
+  durationSec  Float?
+  musicTrackId String?
+  error        String?
+  attempts     Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  publications Publication[]
+}
+
+model Publication {
+  id         String   @id @default(cuid())
+  videoId    String
+  video      Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  accountId  String
+  platform   String
+  status     String   @default("PENDING")
+  externalId String?
+  url        String?
+  error      String?
+  createdAt  DateTime @default(now())
+}
+
+model SocialAccount {
+  id             String          @id @default(cuid())
+  platform       String
+  displayName    String
+  externalUserId String?
+  accessToken    String
+  refreshToken   String?
+  expiresAt      DateTime?
+  meta           String          @default("{}")
+  createdAt      DateTime        @default(now())
+  series         SeriesAccount[]
+}
+
+model SeriesAccount {
+  seriesId  String
+  accountId String
+  series    Series        @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+  account   SocialAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@id([seriesId, accountId])
+}
+
+model Voice {
+  id              String  @id
+  name            String
+  descriptor      String
+  gender          String
+  accent          String?
+  language        String  @default("en")
+  providerKey     String
+  providerVoiceId String
+  previewPath     String?
+}
+
+model MusicTrack {
+  id          String   @id @default(cuid())
+  key         String?  @unique
+  name        String
+  description String?
+  filePath    String
+  isPreset    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  type        String
+  payload     String
+  status      String    @default("QUEUED")
+  runAfter    DateTime  @default(now())
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(3)
+  lockedAt    DateTime?
+  error       String?
+  createdAt   DateTime  @default(now())
+}
+
+model Setting {
+  key   String @id
+  value String
+}
