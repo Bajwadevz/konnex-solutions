@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { Pause, Play } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -81,7 +82,14 @@ export function SeriesWizard({ mode, seriesId, initial }: { mode: "create" | "ed
   });
   const music = useQuery({ queryKey: ["music"], queryFn: () => api<Track[]>("/api/music") });
   const accounts = useQuery({ queryKey: ["accounts"], queryFn: () => api<Account[]>("/api/accounts") });
-  const settings = useQuery({ queryKey: ["settings"], queryFn: () => api<{ providers: { provider: string; detail: string }[] }>("/api/settings") });
+  const settings = useQuery({
+    queryKey: ["settings"],
+    queryFn: () =>
+      api<{
+        providers: { provider: string; detail: string }[];
+        social: Record<"youtube" | "tiktok" | "instagram", { configured: boolean; missing: string[] }>;
+      }>("/api/settings"),
+  });
   const tts = settings.data?.providers.find((item) => item.provider === "tts")?.detail ?? "";
   const provider = tts.includes("elevenlabs") ? "elevenlabs" : tts.includes("kokoro") ? "kokoro" : "edge";
 
@@ -170,7 +178,7 @@ export function SeriesWizard({ mode, seriesId, initial }: { mode: "create" | "ed
   const selectedEffects = form.watch("effects");
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
+    <div className="grid min-w-0 gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
       <ol className="hidden lg:block">
         {["Niche", "Language & Voice", "Music", "Art Style", "Caption Style", "Effects", "Social Accounts", "Series Details"].map((label, index) => (
           <li key={label} className={`mb-3 border-l-2 pl-3 ${step === index + 1 ? "border-cadmium" : "border-white/10 text-muted"}`}>
@@ -179,7 +187,7 @@ export function SeriesWizard({ mode, seriesId, initial }: { mode: "create" | "ed
           </li>
         ))}
       </ol>
-      <section className="panel p-5 md:p-7">
+      <section className="panel min-w-0 p-5 md:p-7">
         <div className="kicker">Step {step} of 8</div>
         <h1 className="display mt-2 text-5xl">{["Niche", "Language & Voice", "Background music", "Art style", "Caption style", "Effects", "Connect social accounts", "Series details"][step - 1]}</h1>
         <div className="mt-6">
@@ -255,13 +263,23 @@ export function SeriesWizard({ mode, seriesId, initial }: { mode: "create" | "ed
             </div>
           )}
           {step === 4 && (
-            <div className="grid-cards">
-              {ART_STYLES.map((style) => (
-                <button type="button" key={style.key} onClick={() => form.setValue("artStyleKey", style.key)} className={`overflow-hidden rounded-2xl border text-left ${form.watch("artStyleKey") === style.key ? "border-cadmium" : "border-white/10"}`}>
-                  <img alt="" src={`/api/art-styles/${style.key}/preview`} className="h-40 w-full object-cover" />
-                  <div className="p-3 font-bold">{style.label}</div>
-                </button>
-              ))}
+            <div>
+              <p className="text-sm text-muted">Choose the visual style for your video</p>
+              <div className="style-rail mt-4">
+                {ART_STYLES.map((style) => {
+                  const on = form.watch("artStyleKey") === style.key;
+                  return (
+                    <button type="button" key={style.key} onClick={() => form.setValue("artStyleKey", style.key)} className={`style-card ${on ? "on" : ""}`} aria-pressed={on}>
+                      <span className="style-frame">
+                        <img alt={`${style.label} style sample`} src={`/art-previews/${style.key}.jpg`} loading="lazy" />
+                        {on && <span className="style-check" aria-hidden="true">✓</span>}
+                      </span>
+                      <span className="mt-2 block font-bold">{style.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-3 text-xs text-muted">Scroll sideways for more. Every scene in the series is drawn in the chosen style.</p>
             </div>
           )}
           {step === 5 && (
@@ -283,12 +301,21 @@ export function SeriesWizard({ mode, seriesId, initial }: { mode: "create" | "ed
           )}
           {step === 7 && (
             <div className="grid gap-3">
-              {["youtube", "tiktok", "instagram"].map((platform) => (
+              {(["youtube", "tiktok", "instagram"] as const).map((platform) => {
+                const social = settings.data?.social?.[platform];
+                return (
                 <div key={platform} className="rounded-2xl border border-white/10 p-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-3">
                     <div className="font-bold capitalize">{platform}</div>
-                    <a className="btn ghost" href={`/api/auth/${platform}/start`}>Connect</a>
+                    {social?.configured ? (
+                      <a className="btn ghost" href={`/api/auth/${platform}/start`}>Connect</a>
+                    ) : (
+                      <Link className="chip text-xs" href="/accounts">Needs setup</Link>
+                    )}
                   </div>
+                  {social && !social.configured && (
+                    <p className="mt-2 text-xs text-muted">Add {social.missing.join(" and ")} to .env. The Accounts page has the steps.</p>
+                  )}
                   <div className="mt-3 grid gap-2">
                     {(accounts.data ?? []).filter((account) => account.platform === platform).map((account) => (
                       <label key={account.id} className="flex items-center gap-2">
@@ -298,7 +325,8 @@ export function SeriesWizard({ mode, seriesId, initial }: { mode: "create" | "ed
                     ))}
                   </div>
                 </div>
-              ))}
+                );
+              })}
               <button type="button" className="btn ghost" onClick={() => { form.setValue("accountIds", []); setStep(8); }}>Skip — I'll download videos manually</button>
               <p className="text-sm text-muted">YouTube can work from localhost for test users. TikTok posts stay private until the app is audited. Instagram needs a public tunnel in PUBLIC_BASE_URL.</p>
             </div>

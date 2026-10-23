@@ -555,6 +555,10 @@ export async function artPreview(key: string) {
   await ready();
   if (!ART_STYLES.some((item) => item.key === key)) return error("Unknown art style.", 404);
   const style = artStyleByKey(key);
+  const shipped = path.join(projectRoot(), "public", "art-previews", `${key}.jpg`);
+  if (await fileExists(shipped)) {
+    return new Response(await fs.readFile(shipped), { headers: { "Content-Type": "image/jpeg", "Cache-Control": "public, max-age=86400" } });
+  }
   const relative = path.join(storageRoot(), "style-previews", `${key}.jpg`);
   if (!(await fileExists(relative))) {
     await ensureDir(path.dirname(relative));

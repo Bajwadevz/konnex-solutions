@@ -15,7 +15,7 @@ const LINKS = [
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
-    <div className="relative z-10 min-h-screen md:grid md:grid-cols-[232px_1fr]">
+    <div className="relative z-10 min-h-screen md:grid md:grid-cols-[232px_minmax(0,1fr)]">
       <aside className="hidden border-r border-white/10 md:flex md:flex-col md:px-5 md:py-6">
         <Link href="/" className="mb-10 block">
           <div className="kicker">Local studio</div>
@@ -50,7 +50,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
       </div>
-      <main className="px-4 py-6 md:px-10 md:py-8">{children}</main>
+      <main className="min-w-0 px-4 py-6 md:px-10 md:py-8">{children}</main>
     </div>
   );
 }
