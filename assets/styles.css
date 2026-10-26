@@ -335,6 +335,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);outline:3px sol
 input[aria-invalid="true"],select[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:#B3261E}
 textarea{min-height:150px;resize:vertical}
 .form-error{background:#FDECEA;color:#8C1D18;border-radius:10px;padding:12px 14px;font-size:15px;margin-bottom:16px}
+.form-ok{background:#E7F5EC;color:#14532D;border-radius:10px;padding:12px 14px;font-size:15px;margin-bottom:16px}
 .form-note{font-size:14px;color:var(--muted);margin-top:14px}
 .contact-side h2{font-size:26px;margin-bottom:18px}
 .info{display:flex;gap:14px;align-items:center;padding:18px;border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:12px;text-decoration:none;color:var(--ink);word-break:break-word}

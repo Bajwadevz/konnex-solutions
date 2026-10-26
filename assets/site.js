@@ -71,7 +71,22 @@
         m+='Need: '+g('service')+'\nTeam size: '+g('size')+'\n';
       }
       m+='\nDetails:\n'+g('message');
-      window.location.href='mailto:info@konnexsolutions.com?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(m);
+      var KEY='3eaf7966-358d-4c83-bf26-ebc972511d0a';
+      var mailto=function(){window.location.href='mailto:info@konnexsolutions.com?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(m);};
+            var btn=f.querySelector('button[type=submit]'),label=btn.textContent;
+      btn.disabled=true;btn.textContent='Sending...';
+      var ok=f.querySelector('.form-ok');
+      if(!ok){ok=document.createElement('p');ok.className='form-ok';ok.setAttribute('role','status');ok.hidden=true;f.insertBefore(ok,btn);}
+      fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:KEY,subject:s,from_name:g('name'),email:g('email'),message:m})})
+        .then(function(r){return r.json();})
+        .then(function(j){
+          if(!j.success)throw new Error('failed');
+          ok.textContent='Thank you. Your request has been sent and we will reply within 1 business day.';ok.hidden=false;f.reset();
+        })
+        .catch(function(){
+          err.textContent='We could not send that just now. Please email info@konnexsolutions.com or try again.';err.hidden=false;
+        })
+        .then(function(){btn.disabled=false;btn.textContent=label;});
     });
   });
 })();
