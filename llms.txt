@@ -1,6 +1,6 @@
 # Konnex Solutions
 
-> Konnex Solutions is an offshore talent firm, founded in 2024 by Shahzaib Ahmad Bajwa. It finds, hires and manages offshore talent, mostly in Pakistan, for companies in the US, UK and worldwide: offshore teams, virtual assistants, recruitment, BPO and sales development. Its largest single line is SLED IT projects: software, web, accessibility, data, QA and IT staff augmentation for US state, local and education agencies, with agency data kept in US-hosted environments and offshore engineers limited to code and synthetic test data.
+> Konnex Solutions is an offshore talent firm, founded in 2024 by Shahzaib Ahmad Bajwa. It finds, hires and manages offshore talent, mostly in Pakistan, for companies in the US, UK and worldwide: offshore teams, virtual assistants, recruitment, BPO and sales development. Its main growth focus is SLED IT projects (no SLED IT project delivered yet): software, web, accessibility, data, QA and IT staff augmentation for US state, local and education agencies, with agency data kept in US-hosted environments and offshore engineers limited to code and synthetic test data.
 
 ## Offshore talent
 - [Offshore teams](https://www.konnexsolutions.com/offshore-teams): dedicated offshore staff for any function, employed and managed by Konnex
